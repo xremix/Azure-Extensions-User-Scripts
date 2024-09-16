@@ -10,6 +10,8 @@
 // ==/UserScript==
 
 function extendAutoExpandNavigationGroupings() {
+
+  const observer = new MutationObserver(() => {
   // Get all groupings
   let groupings = Array.from(document.querySelectorAll('button.azc-listView-collapsible-groupheader'));
 
@@ -26,6 +28,8 @@ function extendAutoExpandNavigationGroupings() {
   relevantGroupings.forEach((grouping) => {
     grouping.click();
   });
+});
+observer.observe(document.body, { childList: true });
 }
 
 (function () {
