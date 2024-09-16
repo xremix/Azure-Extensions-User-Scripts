@@ -17,3 +17,4 @@ Tampermonkey is a popular userscript manager that is available for various brows
 ## Current Features
 
 - Auto Expand Navigation Groups
+- Increase Key Vault Textfield Size
