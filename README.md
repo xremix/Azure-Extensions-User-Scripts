@@ -1,6 +1,6 @@
 # Azure-Extensions - UserScripts
 
-This repository contains user scripts for enhancing your Azure experience. In this tutorial, we will guide you on how to add these scripts to Tampermonkey.
+This repository contains user scripts for enhancing your Azure experience.
 
 ## What is Tampermonkey?
 

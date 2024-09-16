@@ -2,7 +2,7 @@
 // @name         Azure Extensions
 // @namespace    http://tampermonkey.net/
 // @version      2024-09-16
-// @description  try to take over the world!
+// @description  This repository contains user scripts for enhancing your Azure experience.
 // @author       Toni Hoffmann, Dominik Weber
 // @match        https://portal.azure.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=azure.com
