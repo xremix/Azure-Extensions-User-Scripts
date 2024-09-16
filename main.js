@@ -3,12 +3,24 @@
 // @namespace    http://tampermonkey.net/
 // @version      2024-09-16
 // @description  This repository contains user scripts for enhancing your Azure experience.
-// @author       Toni Hoffmann
+// @author       Toni Hoffmann, Dominik Weber
 // @match        https://portal.azure.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=azure.com
 // @grant        none
 // ==/UserScript==
 
+// Initial Author: Dominik Weber
+function increaseKeyVaultTextfield() {
+  const observer = new MutationObserver(() => {
+    const element = document.getElementsByClassName('azc-textarea')[0];
+    if (element) {
+      element.style.height = '300px';
+    }
+  });
+  observer.observe(document.body, { childList: true });
+}
+
+// Initial Author: Toni Hoffmann
 function extendAutoExpandNavigationGroupings() {
   const observer = new MutationObserver(() => {
     // Get all groupings
@@ -35,4 +47,5 @@ function extendAutoExpandNavigationGroupings() {
   'use strict';
   // Choose wich extensions you want to extend:
   extendAutoExpandNavigationGroupings();
+  increaseKeyVaultTextfield();
 })();
