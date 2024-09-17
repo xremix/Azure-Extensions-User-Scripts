@@ -13,6 +13,10 @@ Tampermonkey is a popular userscript manager that is available for various brows
 
 ## How to Install
 
+The most **easy way to install the script** and keep it update is to install it on [Greasy Fork](https://greasyfork.org/de/scripts/508798-azure-extensions).
+
+### Manual Installation
+
 1. Install [Tampermonkey](https://www.tampermonkey.net/)
 2. Click on the "Dashboard" option.
 3. In the Tampermonkey Dashboard, click on the "+" button to create a new script.
