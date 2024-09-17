@@ -10,6 +10,7 @@ Tampermonkey is a popular userscript manager that is available for various brows
 
 - Auto Expand Navigation Groups
 - Increase Key Vault Textfield Size
+- See all Key Vault Secrets in the Overview
 
 ## How to Install
 

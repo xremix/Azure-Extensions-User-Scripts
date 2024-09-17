@@ -43,9 +43,85 @@ function extendAutoExpandNavigationGroupings() {
   observer.observe(document.body, { childList: true });
 }
 
+// Initial Author: Toni Hoffmann
+function showSecretsInOverview() {
+  const observer = new MutationObserver(() => {
+    // check if the page is the keyvault secrets page
+    const isKeyVaultPage =
+      window.location.href.includes('/providers/Microsoft.KeyVault/vaults/') &&
+      window.location.href.endsWith('/secrets');
+    if (!isKeyVaultPage) {
+      return;
+    }
+    if (hasButtonAlreadyOnFooter()) {
+      return;
+    }
+
+    function loadKeyvaultContent(keyvault, secret, callback) {
+      const token = JSON.parse(
+        sessionStorage.getItem(
+          Object.keys(sessionStorage).find((key) => key.includes('https://vault.azure.net/user_impersonation'))
+        )
+      ).secret;
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', `https://${keyvault}.vault.azure.net/secrets/${secret}?api-version=7.0`, true);
+      xhr.setRequestHeader('Authorization', `Bearer ${token}`); // Set the token as a Bearer token in the Authorization header
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          const content = JSON.parse(xhr.responseText);
+          // console.log(content.value);
+          callback(content.value);
+        }
+      };
+      xhr.send();
+    }
+
+    function showSecrets() {
+      // get current url
+      const keyVaultName = window.location.href.split('/vaults/')[1].split('/secrets')[0];
+
+      //  Rename the title
+      Array.from(
+        Array.from(document.querySelectorAll('table.azc-grid-tableHeader tr'))[0].children
+      ).pop().firstChild.innerHTML = 'Secret';
+
+      const secretTableRows = Array.from(document.querySelectorAll('table.azc-grid-full tr'));
+      // for of
+      for (const row of secretTableRows) {
+        const secretName = row.children[0].innerText;
+        const lastTD = row.children[row.children.length - 1];
+        //  lastTD.innerHTML = secretName;
+        loadKeyvaultContent(keyVaultName, secretName, function (secret) {
+          lastTD.innerHTML = secret;
+        });
+      }
+    }
+
+    // TODO move this to toolbar, but this caused some issues at the moment
+    function addButtonToFooter() {
+      const footerBar = document.querySelector('.ext-feedback-positioning');
+      // add button
+      const button = document.createElement('div');
+      button.innerHTML = '<div role="button" style="margin-left: 10px; color: var(--colorLink);">Show Secrets</div>';
+      button.onclick = function () {
+        showSecrets();
+      };
+      footerBar.appendChild(button);
+    }
+
+    function hasButtonAlreadyOnFooter() {
+      return document.querySelector('.ext-feedback-positioning .azc-toolbar-button');
+    }
+
+    addButtonToFooter();
+  });
+  observer.observe(document.body, { childList: true });
+}
+
 (function () {
   'use strict';
   // Choose wich extensions you want to extend:
   extendAutoExpandNavigationGroupings();
   increaseKeyVaultTextfield();
+  showSecretsInOverview();
 })();
