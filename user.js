@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Azure Extensions
 // @namespace    http://tampermonkey.net/
-// @version      2024-09-16
+// @version      2024-09-17
 // @description  This repository contains user scripts for enhancing your Azure Portal experience.
 // @author       Toni Hoffmann, Dominik Weber
 // @match        https://portal.azure.com/*
