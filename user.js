@@ -110,7 +110,7 @@ function showSecretsInOverview() {
     }
 
     function hasButtonAlreadyOnFooter() {
-      return document.querySelector('.ext-feedback-positioning .azc-toolbar-button');
+      return document.querySelector('.ext-feedback-positioning');
     }
 
     addButtonToFooter();
