@@ -56,6 +56,9 @@ function showSecretsInOverview() {
     if (hasButtonAlreadyOnFooter()) {
       return;
     }
+    if (!footerHasLoaded()) {
+      return; 
+    }
 
     function loadKeyvaultContent(keyvault, secret, callback) {
       const token = JSON.parse(
@@ -102,7 +105,7 @@ function showSecretsInOverview() {
       const footerBar = document.querySelector('.ext-feedback-positioning');
       // add button
       const button = document.createElement('div');
-      button.innerHTML = '<div role="button" style="margin-left: 10px; color: var(--colorLink);">Show Secrets</div>';
+      button.innerHTML = '<div id="custom-show-secret-button" role="button" style="margin-left: 10px; color: var(--colorLink);">Show Secrets</div>';
       button.onclick = function () {
         showSecrets();
       };
@@ -110,7 +113,11 @@ function showSecretsInOverview() {
     }
 
     function hasButtonAlreadyOnFooter() {
-      return document.querySelector('.ext-feedback-positioning');
+      return document.querySelector('#custom-show-secret-button');
+    }
+
+    function footerHasLoaded(){
+      return document.querySelector('.ext-feedback-positioning .azc-formElementContainer').innerText.includes('Give feedback');
     }
 
     addButtonToFooter();
